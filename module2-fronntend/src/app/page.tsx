@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/Sidebar';
 import { OverviewScreen } from '@/screens/OverviewScreen';
 import { AttendanceScreen } from '@/screens/AttendanceScreen';
 import { AssignmentsScreen } from '@/screens/AssignmentsScreen';
+import { ActivitiesScreen } from '@/screens/ActivitiesScreen';
 import { LeavesScreen } from '@/screens/LeavesScreen';
 import { StudyMaterialsScreen } from '@/screens/StudyMaterialsScreen';
 import { NotificationsScreen } from '@/screens/NotificationsScreen';
@@ -20,6 +21,7 @@ export default function HomePage() {
       case 'overview': return <OverviewScreen />;
       case 'attendance': return <AttendanceScreen />;
       case 'assignments': return <AssignmentsScreen />;
+      case 'activities': return <ActivitiesScreen />;
       case 'leaves': return <LeavesScreen />;
       case 'materials': return <StudyMaterialsScreen />;
       case 'notifications': return <NotificationsScreen />;

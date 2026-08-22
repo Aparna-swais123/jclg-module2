@@ -1,4 +1,26 @@
-export type TabId = 'overview' | 'attendance' | 'assignments' | 'leaves' | 'materials' | 'notifications';
+export type TabId = 'overview' | 'attendance' | 'assignments' | 'activities' | 'leaves' | 'materials' | 'notifications';
+
+export type ActivityCategory = 'NSS' | 'NCC' | 'Sports' | 'Olympiad' | 'Science Fair' | 'Cultural' | 'Other';
+export type ActivityLevel = 'School' | 'District' | 'State' | 'National';
+export type ActivityStatus = 'Registered' | 'Ongoing' | 'Completed' | 'Withdrawn' | 'Upcoming';
+export type ActivityType = 'Individual' | 'Team' | 'Group';
+
+export interface Activity {
+  activity_id: string;
+  activity_name: string;
+  category: ActivityCategory;
+  level: ActivityLevel;
+  activity_type: ActivityType;
+  start_date: string;
+  end_date: string;
+  venue: string;
+  status: ActivityStatus;
+  result: string;
+  certificate_url?: string;
+  description?: string;
+  coordinator?: string;
+  joined?: boolean;
+}
 
 export interface Student {
   id: string;

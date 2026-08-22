@@ -1,4 +1,4 @@
-import { BarChart3, ClipboardCheck, CalendarDays, BookOpen, Bell } from 'lucide-react';
+import { BarChart3, ClipboardCheck, CalendarDays, Award, BookOpen, Bell } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { TabId } from '@/types';
 
@@ -12,6 +12,7 @@ export const tabs: TabItem[] = [
   { id: 'overview', label: 'Overview', icon: BarChart3 },
   { id: 'attendance', label: 'Attendance', icon: CalendarDays },
   { id: 'assignments', label: 'Assignments', icon: ClipboardCheck },
+  { id: 'activities', label: 'Activities', icon: Award },
   { id: 'leaves', label: 'Leaves', icon: CalendarDays },
   { id: 'materials', label: 'Study Materials', icon: BookOpen },
   { id: 'notifications', label: 'Notifications', icon: Bell },

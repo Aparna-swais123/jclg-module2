@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import { navItems } from './navConfig';
-import { DEFAULT_STUDENT_ID } from '@/services/api';
-import type { TabId } from '@/types';
+import { api, DEFAULT_STUDENT_ID } from '@/services/api';
+import type { StudentProfile, TabId } from '@/types';
+
+import logoImg from '@/assets/logo.jpeg';
 
 interface SidebarProps {
   activeTab: TabId;
@@ -8,11 +11,49 @@ interface SidebarProps {
 }
 
 export function Sidebar({ activeTab, onSelectTab }: SidebarProps) {
+  const [student, setStudent] = useState<StudentProfile | null>(null);
+
+  useEffect(() => {
+    async function loadStudent() {
+      try {
+        const data = await api.getStudent();
+        if (data) {
+          setStudent(data);
+        }
+      } catch (err) {
+        console.error('Failed to load student profile', err);
+      }
+    }
+    loadStudent();
+  }, []);
+
+  const studentName = student
+    ? `${student.first_name} ${student.last_name}`.trim()
+    : 'Student';
+
+  const studentId = student?.student_id ?? DEFAULT_STUDENT_ID;
+
+  const initials = student?.first_name
+    ? `${student.first_name[0]}${student.last_name ? student.last_name[0] : ''}`.toUpperCase()
+    : `S${studentId}`;
+
   return (
     <aside className="fixed left-0 top-0 z-30 flex h-full w-[230px] flex-col bg-sidebar text-white">
       {/* Logo */}
-      <div className="flex items-center gap-2 px-5 pt-6 pb-7">
-        <span className="text-2xl font-extrabold text-brand-500">JCLG</span>
+      <div className="flex items-center gap-3 px-4 pt-6 pb-6">
+        <img
+          src={logoImg}
+          alt="Swais Demo Junior College"
+          className="h-10 w-10 shrink-0 rounded-lg object-cover border border-white/10 shadow-sm"
+        />
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Swais
+          </span>
+          <span className="text-xs font-bold leading-tight text-white uppercase tracking-tight">
+            DEMO JUNIOR COLLEGE
+          </span>
+        </div>
       </div>
 
       {/* Menu label */}
@@ -48,16 +89,27 @@ export function Sidebar({ activeTab, onSelectTab }: SidebarProps) {
 
       {/* User profile */}
       <div className="flex items-center gap-3 border-t border-white/5 px-5 py-5">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white">
-          S{DEFAULT_STUDENT_ID}
-        </div>
+        {student?.photo ? (
+          <img
+            src={student.photo}
+            alt={studentName}
+            className="h-10 w-10 shrink-0 rounded-full object-cover border border-white/10"
+          />
+        ) : (
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white shadow-sm">
+            {initials}
+          </div>
+        )}
         <div className="min-w-0">
-          <p className="truncate text-sm font-bold text-white">Student</p>
-          <p className="truncate text-xs text-slate-500">
-            Student · ID {DEFAULT_STUDENT_ID}
+          <p className="truncate text-sm font-bold text-white" title={studentName}>
+            {studentName}
+          </p>
+          <p className="truncate text-xs text-slate-400">
+            Student · ID {studentId}
           </p>
         </div>
       </div>
     </aside>
   );
 }
+

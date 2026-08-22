@@ -7,6 +7,29 @@ export interface Student {
   initials: string;
 }
 
+export interface StudentProfile {
+  student_id: number;
+  campus_id?: number;
+  academic_year_id?: number;
+  admission_id?: number;
+  student_code?: string;
+  roll_number?: string;
+  first_name: string;
+  last_name: string;
+  date_of_birth?: string;
+  gender?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  photo?: string | null;
+  blood_group?: string;
+  group_id?: number;
+  section_id?: number;
+  status?: boolean;
+}
+
 export interface AttendanceData {
   percentage: number;
   sessionsAttended: number;

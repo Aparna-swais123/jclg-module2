@@ -1,4 +1,5 @@
 import type {
+  StudentProfile,
   AttendanceData,
   Assignment,
   LeaveRequest,
@@ -38,6 +39,20 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  // Student Profile API
+  async getStudent(studentId: number = DEFAULT_STUDENT_ID): Promise<StudentProfile | null> {
+    try {
+      const data = await request<any>(`/students/${studentId}`);
+      if (data && data.student) {
+        return data.student as StudentProfile;
+      }
+      return data as StudentProfile;
+    } catch (error) {
+      console.error('Error fetching student profile:', error);
+      return null;
+    }
+  },
+
   // Attendance API
   async getAttendance(studentId: number = DEFAULT_STUDENT_ID): Promise<AttendanceData> {
     try {

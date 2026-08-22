@@ -9,6 +9,7 @@ from .assignment import router as assignment_router
 from .leave import router as leave_router
 from .study_material import router as study_material_router
 from .notification import router as notification_router
+from .student import router as student_router
 
 app = FastAPI(
     title="JCLG Module 2 API",
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(student_router)
 app.include_router(attendance_router)
 app.include_router(assignment_router)
 app.include_router(leave_router)

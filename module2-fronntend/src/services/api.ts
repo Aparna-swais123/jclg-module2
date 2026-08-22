@@ -11,9 +11,9 @@ import type {
   NotificationCategory,
 } from '@/types';
 
-// Retrieve backend API base URL from environment (e.g. .env VITE_API_BASE_URL)
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
-export const DEFAULT_STUDENT_ID = Number(import.meta.env.VITE_STUDENT_ID) || 12;
+// Browser-visible Next.js environment variables must use the NEXT_PUBLIC_ prefix.
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
+export const DEFAULT_STUDENT_ID = Number(process.env.NEXT_PUBLIC_STUDENT_ID) || 12;
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -42,11 +42,12 @@ export const api = {
   // Student Profile API
   async getStudent(studentId: number = DEFAULT_STUDENT_ID): Promise<StudentProfile | null> {
     try {
-      const data = await request<any>(`/students/${studentId}`);
-      if (data && data.student) {
-        return data.student as StudentProfile;
+      const res = await request<any>(`/students/${studentId}`);
+      const studentData = res?.data ?? res?.student ?? res;
+      if (studentData && typeof studentData === 'object' && ('student_id' in studentData || 'first_name' in studentData)) {
+        return studentData as StudentProfile;
       }
-      return data as StudentProfile;
+      return null;
     } catch (error) {
       console.error('Error fetching student profile:', error);
       return null;
@@ -56,7 +57,8 @@ export const api = {
   // Attendance API
   async getAttendance(studentId: number = DEFAULT_STUDENT_ID): Promise<AttendanceData> {
     try {
-      const data = await request<any>(`/attendance/students/${studentId}/percentage`);
+      const res = await request<any>(`/attendance/students/${studentId}/percentage`);
+      const data = res?.data ?? res;
       const percentage = Number(data.attendance_percentage ?? data.percentage ?? 0);
       const attended = Number(data.present_classes ?? data.sessions_attended ?? data.sessionsAttended ?? 0);
       const total = Number(data.total_classes ?? data.sessions_total ?? data.sessionsTotal ?? 0);
@@ -99,7 +101,7 @@ export const api = {
   async getAssignments(studentId: number = DEFAULT_STUDENT_ID): Promise<Assignment[]> {
     try {
       const data = await request<any>(`/assignments/students/${studentId}`);
-      const rawList: any[] = Array.isArray(data) ? data : data?.assignments || [];
+      const rawList: any[] = Array.isArray(data) ? data : data?.data || data?.assignments || [];
 
       return rawList.map((item) => {
         let status: AssignmentStatus = 'Pending';
@@ -129,7 +131,7 @@ export const api = {
   async getLeaves(studentId: number = DEFAULT_STUDENT_ID): Promise<LeaveRequest[]> {
     try {
       const data = await request<any>(`/leaves/students/${studentId}`);
-      const rawList: any[] = Array.isArray(data) ? data : data?.leaves || [];
+      const rawList: any[] = Array.isArray(data) ? data : data?.data || data?.leaves || [];
 
       return rawList.map((item) => {
         let status: LeaveStatus = 'Pending';
@@ -167,7 +169,7 @@ export const api = {
   async getStudyMaterials(studentId: number = DEFAULT_STUDENT_ID): Promise<StudyMaterial[]> {
     try {
       const data = await request<any>(`/study-materials/students/${studentId}`);
-      const rawList: any[] = Array.isArray(data) ? data : data?.study_materials || [];
+      const rawList: any[] = Array.isArray(data) ? data : data?.data || data?.study_materials || [];
 
       return rawList.map((item) => {
         const rawType = (item.material_type || 'PDF').toUpperCase();
@@ -194,7 +196,7 @@ export const api = {
   async getNotifications(studentId: number = DEFAULT_STUDENT_ID): Promise<NotificationItem[]> {
     try {
       const data = await request<any>(`/notifications/students/${studentId}`);
-      const rawList: any[] = Array.isArray(data) ? data : data?.notifications || [];
+      const rawList: any[] = Array.isArray(data) ? data : data?.data || data?.notifications || [];
 
       return rawList.map((item) => {
         const rawType = (item.notification_type || '').toLowerCase();

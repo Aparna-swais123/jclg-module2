@@ -3,8 +3,6 @@ import { navItems } from './navConfig';
 import { api, DEFAULT_STUDENT_ID } from '@/services/api';
 import type { StudentProfile, TabId } from '@/types';
 
-import logoImg from '@/assets/logo.jpeg';
-
 interface SidebarProps {
   activeTab: TabId;
   onSelectTab: (tab: TabId) => void;
@@ -28,21 +26,21 @@ export function Sidebar({ activeTab, onSelectTab }: SidebarProps) {
   }, []);
 
   const studentName = student
-    ? `${student.first_name} ${student.last_name}`.trim()
+    ? `${student.first_name || ''} ${student.last_name || ''}`.trim() || 'Student'
     : 'Student';
 
   const studentId = student?.student_id ?? DEFAULT_STUDENT_ID;
 
   const initials = student?.first_name
-    ? `${student.first_name[0]}${student.last_name ? student.last_name[0] : ''}`.toUpperCase()
-    : `S${studentId}`;
+    ? `${student.first_name[0] || ''}${student.last_name ? student.last_name[0] : ''}`.toUpperCase()
+    : 'ST';
 
   return (
     <aside className="fixed left-0 top-0 z-30 flex h-full w-[230px] flex-col bg-sidebar text-white">
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 pt-6 pb-6">
         <img
-          src={logoImg}
+          src="/logo.jpeg"
           alt="Swais Demo Junior College"
           className="h-10 w-10 shrink-0 rounded-lg object-cover border border-white/10 shadow-sm"
         />
@@ -105,11 +103,12 @@ export function Sidebar({ activeTab, onSelectTab }: SidebarProps) {
             {studentName}
           </p>
           <p className="truncate text-xs text-slate-400">
-            Student · ID {studentId}
+            {student?.roll_number
+              ? `Roll No: ${student.roll_number}`
+              : (student?.student_code ? `Roll: ${student.student_code}` : 'Student')}
           </p>
         </div>
       </div>
     </aside>
   );
 }
-

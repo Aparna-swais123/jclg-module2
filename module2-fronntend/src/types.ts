@@ -1,4 +1,4 @@
-export type TabId = 'overview' | 'attendance' | 'assignments' | 'activities' | 'leaves' | 'materials' | 'notifications';
+export type TabId = 'overview' | 'attendance' | 'assignments' | 'activities' | 'leaves' | 'materials' | 'notifications' | 'ai-analysis';
 
 export type ActivityCategory = 'NSS' | 'NCC' | 'Sports' | 'Olympiad' | 'Science Fair' | 'Cultural' | 'Other';
 export type ActivityLevel = 'School' | 'District' | 'State' | 'National';
@@ -21,7 +21,6 @@ export interface Activity {
   coordinator?: string;
   joined?: boolean;
 }
-export type TabId = 'overview' | 'attendance' | 'assignments' | 'leaves' | 'materials' | 'notifications' | 'ai-analysis';
 
 export interface Student {
   id: string;

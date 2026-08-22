@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { mockActivities } from '@/data/activities';
 import type {
   Activity,
@@ -127,17 +126,6 @@ export function ActivitiesScreen() {
     );
   };
 
-  const insights = [
-    `You are currently enrolled in ${totalJoined} activit${totalJoined === 1 ? 'y' : 'ies'} this term.`,
-    ongoing > 0
-      ? `${ongoing} activit${ongoing === 1 ? 'y is' : 'ies are'} currently ongoing.`
-      : 'No activities are currently in progress.',
-    certificates > 0
-      ? `You have earned ${certificates} certificate${certificates === 1 ? '' : 's'} — download them from the "My Activities" tab.`
-      : 'You have 1 certificate pending upload — ask your coordinator.',
-    `${upcomingOpen} new activit${upcomingOpen === 1 ? 'y is' : 'ies are'} open for registration this week.`,
-  ];
-
   return (
     <div>
       <PageHeader
@@ -208,11 +196,6 @@ export function ActivitiesScreen() {
           onSelect={setSelectedActivity}
         />
       )}
-
-      {/* Insights */}
-      <div className="mt-6">
-        <InsightsPanel insights={insights} />
-      </div>
 
       {/* Detail modal */}
       {selectedActivity && (

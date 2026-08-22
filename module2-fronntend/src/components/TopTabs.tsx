@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { BarChart3, ClipboardCheck, CalendarDays, BookOpen, Bell, Sparkles } from 'lucide-react';
-=======
-import { BarChart3, ClipboardCheck, CalendarDays, Award, BookOpen, Bell } from 'lucide-react';
->>>>>>> 8eec3cc89890cabb452852d8c0ef6f9218c3d9f9
+import { BarChart3, ClipboardCheck, CalendarDays, Award, BookOpen, Bell, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { TabId } from '@/types';
 

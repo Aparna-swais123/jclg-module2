@@ -8,6 +8,7 @@ import { AssignmentsScreen } from '@/screens/AssignmentsScreen';
 import { LeavesScreen } from '@/screens/LeavesScreen';
 import { StudyMaterialsScreen } from '@/screens/StudyMaterialsScreen';
 import { NotificationsScreen } from '@/screens/NotificationsScreen';
+import { AIAnalysisScreen } from '@/screens/AIAnalysisScreen';
 import { TopHeader } from '@/components/TopHeader';
 import type { TabId } from '@/types';
 
@@ -22,6 +23,7 @@ export default function HomePage() {
       case 'leaves': return <LeavesScreen />;
       case 'materials': return <StudyMaterialsScreen />;
       case 'notifications': return <NotificationsScreen />;
+      case 'ai-analysis': return <AIAnalysisScreen />;
     }
   };
 

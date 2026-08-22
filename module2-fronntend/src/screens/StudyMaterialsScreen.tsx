@@ -3,7 +3,6 @@ import { FileText, Video, Presentation, FileCheck, ExternalLink } from 'lucide-r
 import type { LucideIcon } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { api } from '@/services/api';
 import type { StudyMaterial, MaterialType } from '@/types';
 
@@ -85,19 +84,6 @@ export function StudyMaterialsScreen() {
           })}
         </div>
       )}
-
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            studyMaterials.length > 0
-              ? `${studyMaterials.length} study materials are available across ${subjects} subjects.`
-              : 'No study materials uploaded yet.',
-            recent > 0
-              ? `${recent} new uploads available. Check the latest resources.`
-              : 'Materials uploaded by faculty will appear here automatically.',
-          ]}
-        />
-      </div>
     </div>
   );
 }

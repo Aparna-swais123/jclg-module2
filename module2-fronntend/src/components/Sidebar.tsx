@@ -69,7 +69,7 @@ export function Sidebar({ activeTab, onSelectTab }: SidebarProps) {
               key={item.id}
               onClick={() => onSelectTab(item.id)}
               className={[
-                'flex w-full items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-left transition-colors',
+                'flex w-full items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-left transition-colors cursor-pointer',
                 isActive
                   ? 'bg-brand-500 text-white'
                   : 'text-slate-300 hover:bg-white/5 hover:text-white',

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Plus, X } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { StatusBadge } from '@/components/StatusBadge';
 import { api } from '@/services/api';
 import type { LeaveRequest } from '@/types';
@@ -105,19 +104,6 @@ export function LeavesScreen() {
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            leaves.length > 0
-              ? `You have submitted ${leaves.length} leave request(s) so far — ${approved} approved, ${pending} pending, and ${rejected} rejected.`
-              : 'No leave requests submitted yet.',
-            pending > 0
-              ? 'Pending requests typically take 1–2 business days to process.'
-              : 'Apply in advance whenever possible to ensure timely approval.',
-          ]}
-        />
       </div>
 
       {/* Apply Modal */}

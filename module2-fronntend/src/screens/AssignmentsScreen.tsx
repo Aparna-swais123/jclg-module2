@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { FileText } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { StatusBadge } from '@/components/StatusBadge';
 import { api } from '@/services/api';
 import type { Assignment } from '@/types';
@@ -78,22 +77,6 @@ export function AssignmentsScreen() {
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            assignments.length > 0
-              ? `You have ${assignments.length} total assignment(s): ${submitted} submitted and ${pending} pending.`
-              : 'No assignments assigned yet.',
-            overdue > 0
-              ? `${overdue} assignment(s) are overdue. Prioritize submitting these first.`
-              : 'No overdue assignments — all up to date.',
-            pending > 0
-              ? 'Stay ahead by reviewing requirements and submitting assignments early.'
-              : 'Great job staying on top of your coursework!',
-          ]}
-        />
       </div>
     </div>
   );

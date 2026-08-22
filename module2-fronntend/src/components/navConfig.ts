@@ -1,4 +1,4 @@
-import { BarChart3, CalendarDays, ClipboardCheck, BookOpen, Bell } from 'lucide-react';
+import { BarChart3, CalendarDays, ClipboardCheck, BookOpen, Bell, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { TabId } from '@/types';
 
@@ -15,4 +15,5 @@ export const navItems: NavItem[] = [
   { id: 'leaves', label: 'Leaves', icon: CalendarDays },
   { id: 'materials', label: 'Study Materials', icon: BookOpen },
   { id: 'notifications', label: 'Notifications', icon: Bell },
+  { id: 'ai-analysis', label: 'AI Analysis', icon: Sparkles },
 ];

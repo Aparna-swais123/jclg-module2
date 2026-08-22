@@ -3,7 +3,6 @@ import { AlertTriangle, CalendarDays, BookOpen, Megaphone, ClipboardCheck } from
 import type { LucideIcon } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { api } from '@/services/api';
 import type { NotificationItem, NotificationCategory } from '@/types';
 
@@ -76,19 +75,6 @@ export function NotificationsScreen() {
           })}
         </div>
       )}
-
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            notifications.length > 0
-              ? `You have ${unread} unread notification(s). Review them to stay updated on important deadlines.`
-              : 'You are all caught up! No notifications right now.',
-            alerts > 0
-              ? `${alerts} alert(s) require your immediate attention.`
-              : 'No critical alerts pending.',
-          ]}
-        />
-      </div>
     </div>
   );
 }

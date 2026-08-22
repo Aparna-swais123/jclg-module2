@@ -1,4 +1,4 @@
-export type TabId = 'overview' | 'attendance' | 'assignments' | 'leaves' | 'materials' | 'notifications';
+export type TabId = 'overview' | 'attendance' | 'assignments' | 'leaves' | 'materials' | 'notifications' | 'ai-analysis';
 
 export interface Student {
   id: string;

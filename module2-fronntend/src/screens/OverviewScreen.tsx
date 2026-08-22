@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { CalendarDays, ClipboardCheck, CalendarPlus, Bell } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { api } from '@/services/api';
 import type { AttendanceData, Assignment, LeaveRequest, NotificationItem } from '@/types';
 
@@ -42,10 +41,6 @@ export function OverviewScreen() {
     loadData();
   }, []);
 
-  const pendingAssignments = assignments.filter((a) => a.status === 'Pending').length;
-  const pendingLeaves = leaves.filter((l) => l.status === 'Pending').length;
-  const unreadNotifications = notifications.filter((n) => n.unread).length;
-
   return (
     <div>
       <PageHeader
@@ -74,26 +69,6 @@ export function OverviewScreen() {
           label="Notifications"
           value={loading ? '...' : notifications.length}
           icon={Bell}
-        />
-      </div>
-
-      {/* Insights */}
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            attendance.percentage > 0
-              ? `Your attendance is at ${attendance.percentage}%, ${attendance.percentage >= 75 ? 'well above the 75% requirement — keep it up.' : 'below the 75% requirement.'}`
-              : 'No attendance records logged yet.',
-            pendingAssignments > 0
-              ? `You have ${pendingAssignments} pending assignment(s). Submit them before the due dates to avoid penalties.`
-              : 'No pending assignments.',
-            pendingLeaves > 0
-              ? `${pendingLeaves} leave request(s) currently pending approval.`
-              : 'No pending leave requests.',
-            unreadNotifications > 0
-              ? `You have ${unreadNotifications} unread notification(s).`
-              : 'No unread notifications.',
-          ]}
         />
       </div>
     </div>

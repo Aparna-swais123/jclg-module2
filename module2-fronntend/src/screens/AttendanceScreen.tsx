@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatCard } from '@/components/StatCard';
-import { InsightsPanel } from '@/components/InsightsPanel';
 import { api } from '@/services/api';
 import type { AttendanceData } from '@/types';
 
@@ -121,10 +120,6 @@ export function AttendanceScreen() {
     api.getAttendance().then(setAttendance);
   }, []);
 
-  const bestWeek = attendance.weekly.length > 0
-    ? [...attendance.weekly].sort((a, b) => b.percentage - a.percentage)[0]
-    : null;
-
   return (
     <div>
       <PageHeader
@@ -155,22 +150,6 @@ export function AttendanceScreen() {
           </h3>
           <WeeklyTrendChart weekly={attendance.weekly} />
         </div>
-      </div>
-
-      <div className="mt-6">
-        <InsightsPanel
-          insights={[
-            attendance.sessionsTotal > 0
-              ? `Your overall attendance is ${attendance.percentage}%, with ${attendance.sessionsAttended} sessions attended out of ${attendance.sessionsTotal}.`
-              : 'No attendance sessions recorded yet.',
-            attendance.sessionsMissed > 0
-              ? `You have missed ${attendance.sessionsMissed} sessions so far. Maintain consistency to stay above the required threshold.`
-              : 'You have not missed any sessions.',
-            bestWeek
-              ? `Your best week was ${bestWeek.week} with ${bestWeek.percentage}% attendance.`
-              : 'Weekly trends will appear once attendance sessions are recorded.',
-          ]}
-        />
       </div>
     </div>
   );
